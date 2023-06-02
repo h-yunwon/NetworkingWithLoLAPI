@@ -3,7 +3,7 @@
 
 # Custom
 *.plist
-*.xcconfig
+NetworkingWithLoLAPI/Config.xcconfig
 
 ### macOS ###
 # General
