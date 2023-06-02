@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject private var summonerVM = SummonerViewModel()
+    @State private var isFormValid: Bool = false
     
     var body: some View {
     
@@ -18,24 +19,33 @@ struct ContentView: View {
                     .font(.headline)
                     .foregroundColor(.gray)
                 
-                TextField("소환사 검색", text: $summonerVM.summonerName)
+                TextField("소환사 검색", text: $summonerVM.summonerName, onEditingChanged: { isEditing in
+                    isFormValid = !summonerVM.summonerName.isEmpty
+                })
                     .font(.headline)
                     .foregroundColor(.gray)
                     .textFieldStyle(DefaultTextFieldStyle())
+                
+                Spacer()
+                
+                Button(action: {
+                    summonerVM.fetchSummonerData()
+                }) {
+                    Image(systemName: "chevron.forward")
+                        .font(.headline)
+                }
+                .disabled(!isFormValid)
+
             }
             .padding()
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(Color.gray, lineWidth: 1)
-            )            .padding()
-
-            Text("소환사 이름: \(summonerVM.summonerName)")
-            Text("소환사 레벨: \(summonerVM.summonerLevel)")
+            )
+            .padding()
             
-            Button("검색") {
-                summonerVM.fetchSummonerData()
-                }
-            
+            SummonerProfileView(summonerName: summonerVM.summonerName, summonerLevel: summonerVM.summonerLevel)
+                        
         }
         .padding()
     }
