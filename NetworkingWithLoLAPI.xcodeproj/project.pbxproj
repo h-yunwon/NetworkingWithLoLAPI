@@ -23,7 +23,7 @@
 		5F3AC1572A298ED100623B69 /* NetworkingWithLoLAPI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NetworkingWithLoLAPI.entitlements; sourceTree = "<group>"; };
 		5F3AC1592A298ED100623B69 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5F3AC1632A299A6A00623B69 /* LeagueOfLegendData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueOfLegendData.swift; sourceTree = "<group>"; };
-		5F3AC16A2A29C5DE00623B69 /* SummonerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SummonerViewModel.swift; path = NetworkingWithLoLAPI/SummonerViewModel.swift; sourceTree = SOURCE_ROOT; };
+		5F3AC16A2A29C5DE00623B69 /* SummonerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SummonerViewModel.swift; path = "NetworkingWithLoLAPI/New Group/SummonerViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		5F3AC16D2A29C83E00623B69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5F3AC16E2A29D1BC00623B69 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,8 +60,8 @@
 			isa = PBXGroup;
 			children = (
 				5F3AC16D2A29C83E00623B69 /* Info.plist */,
+				5F3AC16F2A29E12C00623B69 /* ViewModel */,
 				5F3AC1692A29C56000623B69 /* View */,
-				5F3AC1682A29C55E00623B69 /* ViewModel */,
 				5F3AC1672A29C55A00623B69 /* Model */,
 				5F3AC1552A298ED100623B69 /* Assets.xcassets */,
 				5F3AC1572A298ED100623B69 /* NetworkingWithLoLAPI.entitlements */,
@@ -87,20 +87,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		5F3AC1682A29C55E00623B69 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				5F3AC16A2A29C5DE00623B69 /* SummonerViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		5F3AC1692A29C56000623B69 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				5F3AC1532A298ECF00623B69 /* ContentView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		5F3AC16F2A29E12C00623B69 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5F3AC16A2A29C5DE00623B69 /* SummonerViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

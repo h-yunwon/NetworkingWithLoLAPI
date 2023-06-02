@@ -3,6 +3,7 @@
 
 # Custom
 *.plist
+Config.xcconfig
 
 ### macOS ###
 # General
