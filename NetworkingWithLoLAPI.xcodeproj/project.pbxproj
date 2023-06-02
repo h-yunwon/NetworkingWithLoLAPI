@@ -11,7 +11,8 @@
 		5F3AC1542A298ECF00623B69 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AC1532A298ECF00623B69 /* ContentView.swift */; };
 		5F3AC1562A298ED100623B69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F3AC1552A298ED100623B69 /* Assets.xcassets */; };
 		5F3AC15A2A298ED100623B69 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F3AC1592A298ED100623B69 /* Preview Assets.xcassets */; };
-		5F3AC1642A299A6A00623B69 /* SummonerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AC1632A299A6A00623B69 /* SummonerData.swift */; };
+		5F3AC1642A299A6A00623B69 /* LeagueOfLegendData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AC1632A299A6A00623B69 /* LeagueOfLegendData.swift */; };
+		5F3AC16B2A29C5DE00623B69 /* SummonerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AC16A2A29C5DE00623B69 /* SummonerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +22,10 @@
 		5F3AC1552A298ED100623B69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F3AC1572A298ED100623B69 /* NetworkingWithLoLAPI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NetworkingWithLoLAPI.entitlements; sourceTree = "<group>"; };
 		5F3AC1592A298ED100623B69 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5F3AC1632A299A6A00623B69 /* SummonerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerData.swift; sourceTree = "<group>"; };
+		5F3AC1632A299A6A00623B69 /* LeagueOfLegendData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueOfLegendData.swift; sourceTree = "<group>"; };
+		5F3AC16A2A29C5DE00623B69 /* SummonerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SummonerViewModel.swift; path = NetworkingWithLoLAPI/SummonerViewModel.swift; sourceTree = SOURCE_ROOT; };
+		5F3AC16D2A29C83E00623B69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5F3AC16E2A29D1BC00623B69 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +42,7 @@
 		5F3AC1452A298ECF00623B69 = {
 			isa = PBXGroup;
 			children = (
+				5F3AC1512A298ECF00623B69 /* NetworkingWithLoLAPIApp.swift */,
 				5F3AC1502A298ECF00623B69 /* NetworkingWithLoLAPI */,
 				5F3AC14F2A298ECF00623B69 /* Products */,
 			);
@@ -54,11 +59,13 @@
 		5F3AC1502A298ECF00623B69 /* NetworkingWithLoLAPI */ = {
 			isa = PBXGroup;
 			children = (
-				5F3AC1512A298ECF00623B69 /* NetworkingWithLoLAPIApp.swift */,
-				5F3AC1532A298ECF00623B69 /* ContentView.swift */,
-				5F3AC1632A299A6A00623B69 /* SummonerData.swift */,
+				5F3AC16D2A29C83E00623B69 /* Info.plist */,
+				5F3AC1692A29C56000623B69 /* View */,
+				5F3AC1682A29C55E00623B69 /* ViewModel */,
+				5F3AC1672A29C55A00623B69 /* Model */,
 				5F3AC1552A298ED100623B69 /* Assets.xcassets */,
 				5F3AC1572A298ED100623B69 /* NetworkingWithLoLAPI.entitlements */,
+				5F3AC16E2A29D1BC00623B69 /* Config.xcconfig */,
 				5F3AC1582A298ED100623B69 /* Preview Content */,
 			);
 			path = NetworkingWithLoLAPI;
@@ -70,6 +77,30 @@
 				5F3AC1592A298ED100623B69 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5F3AC1672A29C55A00623B69 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5F3AC1632A299A6A00623B69 /* LeagueOfLegendData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5F3AC1682A29C55E00623B69 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5F3AC16A2A29C5DE00623B69 /* SummonerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5F3AC1692A29C56000623B69 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5F3AC1532A298ECF00623B69 /* ContentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,8 +173,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F3AC16B2A29C5DE00623B69 /* SummonerViewModel.swift in Sources */,
 				5F3AC1542A298ECF00623B69 /* ContentView.swift in Sources */,
-				5F3AC1642A299A6A00623B69 /* SummonerData.swift in Sources */,
+				5F3AC1642A299A6A00623B69 /* LeagueOfLegendData.swift in Sources */,
 				5F3AC1522A298ECF00623B69 /* NetworkingWithLoLAPIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +185,7 @@
 /* Begin XCBuildConfiguration section */
 		5F3AC15B2A298ED100623B69 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F3AC16E2A29D1BC00623B69 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -211,6 +244,7 @@
 		};
 		5F3AC15C2A298ED100623B69 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F3AC16E2A29D1BC00623B69 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -262,6 +296,7 @@
 		};
 		5F3AC15E2A298ED100623B69 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F3AC16E2A29D1BC00623B69 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -271,6 +306,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NetworkingWithLoLAPI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NetworkingWithLoLAPI/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -300,6 +337,7 @@
 		};
 		5F3AC15F2A298ED100623B69 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F3AC16E2A29D1BC00623B69 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -309,6 +347,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NetworkingWithLoLAPI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NetworkingWithLoLAPI/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -346,7 +386,7 @@
 				5F3AC15C2A298ED100623B69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5F3AC15D2A298ED100623B69 /* Build configuration list for PBXNativeTarget "NetworkingWithLoLAPI" */ = {
 			isa = XCConfigurationList;
@@ -355,7 +395,7 @@
 				5F3AC15F2A298ED100623B69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
