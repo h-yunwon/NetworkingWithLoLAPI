@@ -11,13 +11,15 @@ struct SummonerProfileView: View {
     
     var summonerName: String = "name"
     var summonerLevel: Int = 0
+    var summonerProfileIconImage: Image = Image(systemName: "circle")
     
     var body: some View {
         HStack {
-            Image(systemName: "circle") // 소환사 아이콘
+            summonerProfileIconImage // 소환사 아이콘
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100)
+                .clipShape(Circle())
                 .overlay(
                     Text(String(summonerLevel)) // 소환사 레벨
                         .font(.subheadline)

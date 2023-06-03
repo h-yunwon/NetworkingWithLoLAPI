@@ -16,10 +16,3 @@ struct Summoner: Codable {
     let revisionDate: Int
     let summonerLevel: Int
 }
-
-// 소환사 아이콘
-// 소환사 레벨
-// 소환사 이름
-// 티어
-// 티어 이미지
-// 티어 점수 

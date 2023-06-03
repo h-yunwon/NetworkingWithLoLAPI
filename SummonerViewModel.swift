@@ -6,14 +6,41 @@
 //
 
 import Foundation
+import SwiftUI
 
 class SummonerViewModel: ObservableObject {
     @Published var summonerName: String = ""
     @Published var summonerLevel: Int = 0
-
-    private var apiKey = Bundle.main.apiKey
+    @Published var summonerProfileIconImage: Image = Image(systemName: "circle")
+    
+    private let apiKey = Bundle.main.apiKey
     private let baseURL = Bundle.main.baseUrl
     
+    // 소환사 아이콘 이미지 가져오기
+    func fetchIconImageData(summonerProfileIconId: Int) {
+        guard let imageUrl = URL(string: "http://ddragon.leagueoflegends.com/cdn/13.11.1/img/profileicon/\(summonerProfileIconId).png") else {
+            print("Invalid URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.summonerProfileIconImage = Image(uiImage: UIImage(data: data) ?? UIImage())
+            }
+        }.resume()
+    }
+    
+    // 소환사 정보 가져오기
     func fetchSummonerData() {
         guard let encodedPath = summonerName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: baseURL + encodedPath + "?api_key=\(apiKey)") else {
@@ -40,8 +67,11 @@ class SummonerViewModel: ObservableObject {
                     self.summonerName = summoner.name
                     self.summonerLevel = summoner.summonerLevel
                 }
+                
+                self.fetchIconImageData(summonerProfileIconId: summoner.profileIconId)
+                
             } catch {
-                print("Error decoding JSON: \(error.localizedDescription)")
+                print("fetchSummonerData - Error decoding JSON: \(error.localizedDescription)")
             }
         }.resume()
     }

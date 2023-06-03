@@ -44,7 +44,7 @@ struct ContentView: View {
             )
             .padding()
             
-            SummonerProfileView(summonerName: summonerVM.summonerName, summonerLevel: summonerVM.summonerLevel)
+            SummonerProfileView(summonerName: summonerVM.summonerName, summonerLevel: summonerVM.summonerLevel, summonerProfileIconImage: summonerVM.summonerProfileIconImage)
                         
         }
         .padding()
