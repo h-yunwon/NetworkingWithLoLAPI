@@ -16,3 +16,19 @@ struct Summoner: Codable {
     let revisionDate: Int
     let summonerLevel: Int
 }
+
+struct League: Codable {
+    let leagueId: String
+    let queueType: String
+    let tier: String
+    let rank: String
+    let summonerId: String
+    let summonerName: String
+    let leaguePoints: Int
+    let wins: Int
+    let losses: Int
+    let veteran: Bool
+    let inactive: Bool
+    let freshBlood: Bool
+    let hotStreak: Bool
+}

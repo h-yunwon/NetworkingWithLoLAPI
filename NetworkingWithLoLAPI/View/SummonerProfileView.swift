@@ -11,14 +11,19 @@ struct SummonerProfileView: View {
     
     var summonerName: String = "name"
     var summonerLevel: Int = 0
+    
     var summonerProfileIconImage: Image = Image(systemName: "circle")
+    
+    var summonerTier: String = "Silver"
+    var summonerRank: String = "4"
+    var summonerLeaguePoints: Int = 10
     
     var body: some View {
         HStack {
             summonerProfileIconImage // 소환사 아이콘
                 .resizable()
                 .scaledToFit()
-                .frame(width: 100)
+                .frame(width: 80, height: 80, alignment: .center)
                 .clipShape(Circle())
                 .overlay(
                     Text(String(summonerLevel)) // 소환사 레벨
@@ -30,23 +35,24 @@ struct SummonerProfileView: View {
                     , alignment: .bottom
             )
             
-            VStack {
+            VStack(alignment: .leading, spacing: 0) {
+                Image("emblem-\(summonerTier.lowercased())") // 티어 이미지
+                    .resizable()
+                    .scaledToFit()
+
                 Text(summonerName) // 소환사 이름
                     .font(.headline)
                     .fontWeight(.bold)
                 
                 HStack {
-                    Text("Tier") // 티어
-                    
-                    Image(systemName: "circle") // 티어 이미지
-                    
-                    Divider()
-                        .frame(height: 20)
-                    
-                    Text("점수 LP") // 티어 점수
+                    Text(summonerTier + " " + summonerRank) // 티어
+                    Text("\(summonerLeaguePoints) LP") // 티어 점수
                 }
+                
+
             }
         }
+        .frame(width: 300, height: 90)
     }
 }
 

@@ -11,10 +11,61 @@ import SwiftUI
 class SummonerViewModel: ObservableObject {
     @Published var summonerName: String = ""
     @Published var summonerLevel: Int = 0
+    
     @Published var summonerProfileIconImage: Image = Image(systemName: "circle")
+    
+    @Published var summonerTier: String = ""
+    @Published var summonerRank: String = ""
+    @Published var summonerLeaguePoints: Int = 0
     
     private let apiKey = Bundle.main.apiKey
     private let baseURL = Bundle.main.baseUrl
+    
+    // 소환사 리그정보 가져오기
+    func fetchSummonerLeagueData(summonerId: String) {
+        guard let url = URL(string: "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/\(summonerId)?api_key=\(apiKey)") else {
+            print("Invalid URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+            
+            // 가져온 데이터 구조 확인
+//            if let dataString = String(data: data, encoding: .utf8) {
+//                print(dataString)
+//            } else {
+//                print("Unable to convert data to string")
+//
+            
+            do {
+                let decoder = JSONDecoder()
+                let league = try decoder.decode([League].self, from: data)
+                
+                DispatchQueue.main.async {
+                    if league.count == 2 {
+                        self.summonerTier = league[1].tier
+                        self.summonerRank = league[1].rank
+                        self.summonerLeaguePoints = league[1].leaguePoints
+                    } else {
+                        self.summonerTier = league[0].tier
+                        self.summonerRank = league[0].rank
+                        self.summonerLeaguePoints = league[0].leaguePoints
+                    }
+                }
+            } catch {
+                print("fetchSummonerLeagueData - Error decoding JSON: \(error.localizedDescription)")
+            }
+        }.resume()
+    }
     
     // 소환사 아이콘 이미지 가져오기
     func fetchIconImageData(summonerProfileIconId: Int) {
@@ -69,6 +120,7 @@ class SummonerViewModel: ObservableObject {
                 }
                 
                 self.fetchIconImageData(summonerProfileIconId: summoner.profileIconId)
+                self.fetchSummonerLeagueData(summonerId: summoner.id)
                 
             } catch {
                 print("fetchSummonerData - Error decoding JSON: \(error.localizedDescription)")
