@@ -16,10 +16,10 @@ class SummonerViewModel: ObservableObject {
     
     @Published var summonerProfileIconImage: Image = Image(systemName: "circle")
     
-    @Published var summonerSoloTier: String = ""
+    @Published var summonerSoloTier: String = "unranked"
     @Published var summonerSoloRank: String = ""
     @Published var summonerSoloLeaguePoints: Int = 0
-    @Published var summonerFlexTier: String = ""
+    @Published var summonerFlexTier: String = "unranked"
     @Published var summonerFlexRank: String = ""
     @Published var summonerFlexLeaguePoints: Int = 0
     
@@ -55,47 +55,25 @@ class SummonerViewModel: ObservableObject {
                 let decoder = JSONDecoder()
                 let league = try decoder.decode([League].self, from: data)
                 
+                var leagueData = [String: League]() // 딕셔너리 생성
+                
+                // league 배열을 순회하면서 딕셔너리에 값을 저장
+                for leagueInfo in league {
+                    leagueData[leagueInfo.queueType] = leagueInfo
+                }
+                
                 DispatchQueue.main.async {
                     
-                    switch league.count {
-                    case 0:
-                        self.summonerSoloTier = "unranked"
-                        self.summonerSoloRank = "0"
-                        self.summonerSoloLeaguePoints = 0
-                        
-                        self.summonerFlexTier = "unranked"
-                        self.summonerFlexRank = "0"
-                        self.summonerFlexLeaguePoints = 0
-                    case 1:
-                        if league[0].queueType == "RANKED_SOLO_5x5" {
-                            self.summonerSoloTier = league[0].tier
-                            self.summonerSoloRank = league[0].rank
-                            self.summonerSoloLeaguePoints = league[0].leaguePoints
-                            
-                            self.summonerFlexTier = "unranked"
-                            self.summonerFlexRank = "0"
-                            self.summonerFlexLeaguePoints = 0
-                            
-                        } else {
-                            
-                            self.summonerSoloTier = "unranked"
-                            self.summonerSoloRank = "0"
-                            self.summonerSoloLeaguePoints = 0
-                            
-                            self.summonerFlexTier = league[0].tier
-                            self.summonerFlexRank = league[0].rank
-                            self.summonerFlexLeaguePoints = league[0].leaguePoints
-                        }
-                    case 2:
-                        self.summonerSoloTier = league[0].tier
-                        self.summonerSoloRank = league[0].rank
-                        self.summonerSoloLeaguePoints = league[0].leaguePoints
-                        
-                        self.summonerFlexTier = league[1].tier
-                        self.summonerFlexRank = league[1].rank
-                        self.summonerFlexLeaguePoints = league[1].leaguePoints
-                        
-                    default : print("Error Switch case ")
+                    if let soloLeague = leagueData["RANKED_SOLO_5x5"] {
+                        self.summonerSoloTier = soloLeague.tier
+                        self.summonerSoloRank = soloLeague.rank
+                        self.summonerSoloLeaguePoints = soloLeague.leaguePoints
+                    }
+                    
+                    if let flexLeague = leagueData["RANKED_FLEX_SR"] {
+                        self.summonerFlexTier = flexLeague.tier
+                        self.summonerFlexRank = flexLeague.rank
+                        self.summonerFlexLeaguePoints = flexLeague.leaguePoints
                     }
                 }
             } catch {
