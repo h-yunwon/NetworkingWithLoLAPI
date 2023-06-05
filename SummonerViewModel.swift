@@ -24,8 +24,7 @@ class SummonerViewModel: ObservableObject {
     @Published var summonerFlexLeaguePoints: Int = 0
     
     private let apiKey = Bundle.main.apiKey
-    private let baseURL = Bundle.main.baseUrl
-    
+
     // MARK: - FUNCTION
     // 소환사 리그정보 가져오기
     func fetchSummonerLeagueData(summonerId: String) {
@@ -132,7 +131,7 @@ class SummonerViewModel: ObservableObject {
     // 소환사 정보 가져오기
     func fetchSummonerData() {
         guard let encodedPath = summonerName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: baseURL + encodedPath + "?api_key=\(apiKey)") else {
+              let url = URL(string: "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/\(encodedPath)?api_key=\(apiKey)") else {
             print("Invalid URL")
             return
         }
@@ -182,18 +181,5 @@ extension Bundle {
         }
         
         return value
-    }
-    
-    var baseUrl: String {
-        guard let filePath = Bundle.main.path(forResource: "Info", ofType: "plist"),
-              let plistDict = NSDictionary(contentsOfFile: filePath) else {
-            fatalError("Couldn't find file 'Info.plist'.")
-        }
-        
-        guard let value = plistDict["SUMMONER_V4_BASE_URL"] as? String else {
-            fatalError("Couldn't find key 'SUMMONER_V4_BASE_URL' in 'Info.plist'.")
-        }
-        
-        return "https://" + value
     }
 }
