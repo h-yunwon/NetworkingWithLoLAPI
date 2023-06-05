@@ -9,18 +9,24 @@ import Foundation
 import SwiftUI
 
 class SummonerViewModel: ObservableObject {
+    
+    // MARK: - PROPERTY
     @Published var summonerName: String = ""
     @Published var summonerLevel: Int = 0
     
     @Published var summonerProfileIconImage: Image = Image(systemName: "circle")
     
-    @Published var summonerTier: String = ""
-    @Published var summonerRank: String = ""
-    @Published var summonerLeaguePoints: Int = 0
+    @Published var summonerSoloTier: String = ""
+    @Published var summonerSoloRank: String = ""
+    @Published var summonerSoloLeaguePoints: Int = 0
+    @Published var summonerFlexTier: String = ""
+    @Published var summonerFlexRank: String = ""
+    @Published var summonerFlexLeaguePoints: Int = 0
     
     private let apiKey = Bundle.main.apiKey
     private let baseURL = Bundle.main.baseUrl
     
+    // MARK: - FUNCTION
     // 소환사 리그정보 가져오기
     func fetchSummonerLeagueData(summonerId: String) {
         guard let url = URL(string: "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/\(summonerId)?api_key=\(apiKey)") else {
@@ -51,14 +57,46 @@ class SummonerViewModel: ObservableObject {
                 let league = try decoder.decode([League].self, from: data)
                 
                 DispatchQueue.main.async {
-                    if league.count == 2 {
-                        self.summonerTier = league[1].tier
-                        self.summonerRank = league[1].rank
-                        self.summonerLeaguePoints = league[1].leaguePoints
-                    } else {
-                        self.summonerTier = league[0].tier
-                        self.summonerRank = league[0].rank
-                        self.summonerLeaguePoints = league[0].leaguePoints
+                    
+                    switch league.count {
+                    case 0:
+                        self.summonerSoloTier = "unranked"
+                        self.summonerSoloRank = "0"
+                        self.summonerSoloLeaguePoints = 0
+                        
+                        self.summonerFlexTier = "unranked"
+                        self.summonerFlexRank = "0"
+                        self.summonerFlexLeaguePoints = 0
+                    case 1:
+                        if league[0].queueType == "RANKED_SOLO_5x5" {
+                            self.summonerSoloTier = league[0].tier
+                            self.summonerSoloRank = league[0].rank
+                            self.summonerSoloLeaguePoints = league[0].leaguePoints
+                            
+                            self.summonerFlexTier = "unranked"
+                            self.summonerFlexRank = "0"
+                            self.summonerFlexLeaguePoints = 0
+                            
+                        } else {
+                            
+                            self.summonerSoloTier = "unranked"
+                            self.summonerSoloRank = "0"
+                            self.summonerSoloLeaguePoints = 0
+                            
+                            self.summonerFlexTier = league[0].tier
+                            self.summonerFlexRank = league[0].rank
+                            self.summonerFlexLeaguePoints = league[0].leaguePoints
+                        }
+                    case 2:
+                        self.summonerSoloTier = league[0].tier
+                        self.summonerSoloRank = league[0].rank
+                        self.summonerSoloLeaguePoints = league[0].leaguePoints
+                        
+                        self.summonerFlexTier = league[1].tier
+                        self.summonerFlexRank = league[1].rank
+                        self.summonerFlexLeaguePoints = league[1].leaguePoints
+                        
+                    default : print("Error Switch case ")
                     }
                 }
             } catch {

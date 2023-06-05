@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject private var summonerVM = SummonerViewModel()
+    @StateObject private var summonerVM = SummonerViewModel()
     @State private var isFormValid: Bool = false
     
     var body: some View {
@@ -48,9 +48,12 @@ struct ContentView: View {
                 summonerName: summonerVM.summonerName,
                 summonerLevel: summonerVM.summonerLevel,
                 summonerProfileIconImage: summonerVM.summonerProfileIconImage,
-                summonerTier: summonerVM.summonerTier,
-                summonerRank: summonerVM.summonerRank,
-                summonerLeaguePoints: summonerVM.summonerLeaguePoints
+                soloTier: summonerVM.summonerSoloTier,
+                soloRank: summonerVM.summonerSoloRank,
+                soloLeaguePoints: summonerVM.summonerSoloLeaguePoints,
+                flexTier: summonerVM.summonerFlexTier,
+                flexRank: summonerVM.summonerFlexRank,
+                flexLeaguePoints: summonerVM.summonerFlexLeaguePoints
             )
         }
         .padding()

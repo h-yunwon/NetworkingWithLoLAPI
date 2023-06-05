@@ -14,6 +14,7 @@
 		5F3AC1642A299A6A00623B69 /* SummonerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AC1632A299A6A00623B69 /* SummonerDataModel.swift */; };
 		5F3AC1712A29EF0300623B69 /* SummonerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AC1702A29EF0300623B69 /* SummonerViewModel.swift */; };
 		5F3AC1732A29F2AA00623B69 /* SummonerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AC1722A29F2AA00623B69 /* SummonerProfileView.swift */; };
+		5F3AC1752A2D78F300623B69 /* SummonerRankView .swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AC1742A2D78F300623B69 /* SummonerRankView .swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		5F3AC16E2A29D1BC00623B69 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5F3AC1702A29EF0300623B69 /* SummonerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerViewModel.swift; sourceTree = SOURCE_ROOT; };
 		5F3AC1722A29F2AA00623B69 /* SummonerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerProfileView.swift; sourceTree = "<group>"; };
+		5F3AC1742A2D78F300623B69 /* SummonerRankView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SummonerRankView .swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			children = (
 				5F3AC1532A298ECF00623B69 /* ContentView.swift */,
 				5F3AC1722A29F2AA00623B69 /* SummonerProfileView.swift */,
+				5F3AC1742A2D78F300623B69 /* SummonerRankView .swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F3AC1712A29EF0300623B69 /* SummonerViewModel.swift in Sources */,
+				5F3AC1752A2D78F300623B69 /* SummonerRankView .swift in Sources */,
 				5F3AC1542A298ECF00623B69 /* ContentView.swift in Sources */,
 				5F3AC1642A299A6A00623B69 /* SummonerDataModel.swift in Sources */,
 				5F3AC1732A29F2AA00623B69 /* SummonerProfileView.swift in Sources */,
