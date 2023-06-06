@@ -11,6 +11,22 @@ struct ContentView: View {
     @StateObject private var summonerVM = SummonerViewModel()
     @State private var isFormValid: Bool = false
     
+    func addToProfileInfo() -> ProfileInfo {
+        let profileInfo = ProfileInfo(
+            summonerName: summonerVM.summonerName,
+            summonerLevel: summonerVM.summonerLevel,
+            soloTier: summonerVM.summonerSoloTier,
+            soloRank: summonerVM.summonerSoloRank,
+            soloLeaguePoints: summonerVM.summonerSoloLeaguePoints,
+            flexTier: summonerVM.summonerFlexTier,
+            flexRank: summonerVM.summonerFlexRank,
+            flexLeaguePoints: summonerVM.summonerFlexLeaguePoints,
+            summonerProfileIconImage: summonerVM.summonerProfileIconImage
+        )
+        
+        return profileInfo
+    }
+    
     var body: some View {
     
         VStack(spacing: 5) {
@@ -44,17 +60,7 @@ struct ContentView: View {
             )
             .padding()
             
-            SummonerProfileView(
-                summonerName: summonerVM.summonerName,
-                summonerLevel: summonerVM.summonerLevel,
-                summonerProfileIconImage: summonerVM.summonerProfileIconImage,
-                soloTier: summonerVM.summonerSoloTier,
-                soloRank: summonerVM.summonerSoloRank,
-                soloLeaguePoints: summonerVM.summonerSoloLeaguePoints,
-                flexTier: summonerVM.summonerFlexTier,
-                flexRank: summonerVM.summonerFlexRank,
-                flexLeaguePoints: summonerVM.summonerFlexLeaguePoints
-            )
+            SummonerProfileView(profileInfo: addToProfileInfo())
         }
         .padding()
     }

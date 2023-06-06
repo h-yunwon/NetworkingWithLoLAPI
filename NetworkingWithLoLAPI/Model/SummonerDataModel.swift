@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Summoner: Codable {
     let id: String
@@ -31,4 +32,16 @@ struct League: Codable {
     let inactive: Bool
     let freshBlood: Bool
     let hotStreak: Bool
+}
+
+struct ProfileInfo {
+    let summonerName: String
+    let summonerLevel: Int
+    let soloTier: String
+    let soloRank: String
+    let soloLeaguePoints: Int
+    let flexTier: String
+    let flexRank: String
+    let flexLeaguePoints: Int
+    let summonerProfileIconImage: Image
 }
