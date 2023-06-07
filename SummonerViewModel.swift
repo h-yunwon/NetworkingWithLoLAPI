@@ -26,6 +26,29 @@ class SummonerViewModel: ObservableObject {
     private let apiKey = Bundle.main.apiKey
 
     // MARK: - FUNCTION
+    
+    // USER DEFAULT 저장하기
+    func saveFavorites(favorites: Favorite) {
+        let encoder = JSONEncoder()
+        if let encodedData = try? encoder.encode(favorites) {
+            UserDefaults.standard.set(encodedData, forKey: "Favorite")
+            print("저장 성공: \(encodedData)")
+        }
+        
+    }
+    // USER DEFAULT 불러오기
+    func loadProfileInfo() -> Favorite? {
+        if let encodedData = UserDefaults.standard.data(forKey: "Favorite") {
+            let decoder = JSONDecoder()
+            if let favorites = try? decoder.decode(Favorite.self, from: encodedData) {
+                print("불러오기 성공: \(favorites)")
+                return favorites
+            }
+        }
+        return nil
+    }
+
+    
     // 소환사 리그정보 가져오기
     func fetchSummonerLeagueData(summonerId: String) {
         guard let url = URL(string: "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/\(summonerId)?api_key=\(apiKey)") else {
@@ -68,12 +91,20 @@ class SummonerViewModel: ObservableObject {
                         self.summonerSoloTier = soloLeague.tier
                         self.summonerSoloRank = soloLeague.rank
                         self.summonerSoloLeaguePoints = soloLeague.leaguePoints
+                    } else {
+                        self.summonerSoloTier = "unranked"
+                        self.summonerSoloRank = ""
+                        self.summonerSoloLeaguePoints = 0
                     }
                     
                     if let flexLeague = leagueData["RANKED_FLEX_SR"] {
                         self.summonerFlexTier = flexLeague.tier
                         self.summonerFlexRank = flexLeague.rank
                         self.summonerFlexLeaguePoints = flexLeague.leaguePoints
+                    } else {
+                        self.summonerFlexTier = "unranked"
+                        self.summonerFlexRank = ""
+                        self.summonerFlexLeaguePoints = 0
                     }
                 }
             } catch {

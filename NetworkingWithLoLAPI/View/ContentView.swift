@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var summonerVM = SummonerViewModel()
     @State private var isFormValid: Bool = false
+    @State private var isFavorite: Bool = false
     
     func addToProfileInfo() -> ProfileInfo {
         let profileInfo = ProfileInfo(
@@ -21,10 +22,15 @@ struct ContentView: View {
             flexTier: summonerVM.summonerFlexTier,
             flexRank: summonerVM.summonerFlexRank,
             flexLeaguePoints: summonerVM.summonerFlexLeaguePoints,
-            summonerProfileIconImage: summonerVM.summonerProfileIconImage
+            summonerProfileIconImage: summonerVM.summonerProfileIconImage,
+            isFavorite: isFavorite
         )
-        
+
         return profileInfo
+    }
+    
+    func searchSummoner() {
+        summonerVM.fetchSummonerData()
     }
     
     var body: some View {
@@ -45,7 +51,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Button(action: {
-                    summonerVM.fetchSummonerData()
+                    searchSummoner()
                 }) {
                     Image(systemName: "chevron.forward")
                         .font(.headline)
@@ -60,7 +66,7 @@ struct ContentView: View {
             )
             .padding()
             
-            SummonerProfileView(profileInfo: addToProfileInfo())
+            SummonerProfileView(summonerVM: summonerVM, profileInfo: addToProfileInfo(), isFavorite: $isFavorite)
         }
         .padding()
     }
