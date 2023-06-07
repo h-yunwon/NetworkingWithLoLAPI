@@ -28,19 +28,18 @@ class SummonerViewModel: ObservableObject {
     // MARK: - FUNCTION
     
     // USER DEFAULT 저장하기
-    func saveFavorites(favorites: Favorite) {
+    func saveFavorites(profileInfo: ProfileInfo) {
         let encoder = JSONEncoder()
-        if let encodedData = try? encoder.encode(favorites) {
-            UserDefaults.standard.set(encodedData, forKey: "Favorite")
+        if let encodedData = try? encoder.encode(profileInfo) {
+            UserDefaults.standard.set(encodedData, forKey: "ProfileInfo")
             print("저장 성공: \(encodedData)")
         }
-        
     }
     // USER DEFAULT 불러오기
-    func loadProfileInfo() -> Favorite? {
-        if let encodedData = UserDefaults.standard.data(forKey: "Favorite") {
+    func loadFavorites() -> ProfileInfo? {
+        if let encodedData = UserDefaults.standard.data(forKey: "ProfileInfo") {
             let decoder = JSONDecoder()
-            if let favorites = try? decoder.decode(Favorite.self, from: encodedData) {
+            if let favorites = try? decoder.decode(ProfileInfo.self, from: encodedData) {
                 print("불러오기 성공: \(favorites)")
                 return favorites
             }

@@ -8,61 +8,45 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    // MARK: - PROPERTY
+    
     @StateObject private var summonerVM = SummonerViewModel()
     @State private var isFormValid: Bool = false
-    @State private var isFavorite: Bool = false
-
-    func addToProfileInfo() -> ProfileInfo {
-        let profileInfo = ProfileInfo(
-            summonerName: summonerVM.summonerName,
-            summonerLevel: summonerVM.summonerLevel,
-            soloTier: summonerVM.summonerSoloTier,
-            soloRank: summonerVM.summonerSoloRank,
-            soloLeaguePoints: summonerVM.summonerSoloLeaguePoints,
-            flexTier: summonerVM.summonerFlexTier,
-            flexRank: summonerVM.summonerFlexRank,
-            flexLeaguePoints: summonerVM.summonerFlexLeaguePoints,
-            summonerProfileIconImage: summonerVM.summonerProfileIconImage,
-            isFavorite: isFavorite
-        )
-
-        return profileInfo
-    }
     
-    func setFavorites() -> Favorite {
-        var favorites: Favorite {
-            get {
-                let summonerName = summonerVM.summonerName
-                let summonerLevel = summonerVM.summonerLevel
-                let soloTier = summonerVM.summonerSoloTier
-                let soloRank = summonerVM.summonerSoloRank
-                let soloLeaguePoints = summonerVM.summonerSoloLeaguePoints
-                let flexTier = summonerVM.summonerFlexTier
-                let flexRank = summonerVM.summonerFlexRank
-                let flexLeaguePoints = summonerVM.summonerFlexLeaguePoints
-            //    let summonerProfileIconImageData: Data?
-                let isFavorite = $isFavorite
-                
-                return Favorite(
-                    summonerName: summonerName,
-                    summonerLevel: summonerLevel,
-                    soloTier: soloTier,
-                    soloRank: soloRank,
-                    soloLeaguePoints: soloLeaguePoints,
-                    flexTier: flexTier,
-                    flexRank: flexRank,
-                    flexLeaguePoints: flexLeaguePoints,
-                    isFavorite: false
-                )
-            }
+//    @State private var defaultName : String
+//    @State private var defaultLevel : Int
+//    @State private var defaultSoloTier : String
+//    @State private var defaultSoloRank : String
+//    @State private var defaultSoloLeaguePoints : Int
+//    @State private var defaultFlexTier : String
+//    @State private var defaultFlexRank : String
+//    @State private var defaultFlexLeaguePoints : Int
+//    @State private var defaultProfileIconImage : Image
+//
+    // MARK: - FUNCTION
+    
+    func imageToData(image: Image) -> Data? {
+        guard let uiImage = image.toUIImage() else {
+            return nil
         }
         
-        return favorites
+        return uiImage.pngData()
     }
-    
+
+    func dataToImage(data: Data) -> Image? {
+        guard let uiImage = UIImage(data: data) else {
+            return nil
+        }
+        
+        return Image(uiImage: uiImage)
+    }
+
     func searchSummoner() {
         summonerVM.fetchSummonerData()
     }
+    
+    // MARK: - BODY
     
     var body: some View {
     
@@ -98,7 +82,17 @@ struct ContentView: View {
             .padding()
             
             VStack {
-                SummonerProfileView(summonerVM: summonerVM, profileInfo: addToProfileInfo(), isFavorite: $isFavorite)
+                SummonerProfileView(
+                    name : summonerVM.summonerName,
+                    level : summonerVM.summonerLevel,
+                    soloTier : summonerVM.summonerSoloTier,
+                    soloRank : summonerVM.summonerSoloRank,
+                    soloLeaguePoints : summonerVM.summonerSoloLeaguePoints,
+                    flexTier : summonerVM.summonerFlexTier,
+                    flexRank : summonerVM.summonerFlexRank,
+                    flexLeaguePoints : summonerVM.summonerFlexLeaguePoints,
+                    profileIconImage : summonerVM.summonerProfileIconImage
+                )
                     .background(
                         Color(.systemGray)
                             .opacity(0.2)
@@ -106,8 +100,18 @@ struct ContentView: View {
                     .cornerRadius(12)
                 
                 Button(action: {
-                    isFavorite.toggle()
-                    summonerVM.saveFavorites(favorites: setFavorites())
+                    summonerVM.saveFavorites(profileInfo: ProfileInfo(
+                        summonerName: summonerVM.summonerName,
+                        summonerLevel: summonerVM.summonerLevel,
+                        soloTier: summonerVM.summonerSoloTier,
+                        soloRank: summonerVM.summonerSoloRank,
+                        soloLeaguePoints: summonerVM.summonerSoloLeaguePoints,
+                        flexTier: summonerVM.summonerFlexTier,
+                        flexRank: summonerVM.summonerFlexRank,
+                        flexLeaguePoints: summonerVM.summonerFlexLeaguePoints,
+                        iconImageData: imageToData(image: summonerVM.summonerProfileIconImage) ?? Data()
+                    ))
+                    
                 }) {
                     Text("즐겨찾기")
                         .font(.headline)
@@ -121,15 +125,36 @@ struct ContentView: View {
                 )
                 .cornerRadius(5)
                 
-                SummonerProfileView(summonerVM: summonerVM, profileInfo: addToProfileInfo(), isFavorite: $isFavorite)
-                    .background(
+                SummonerProfileView(
+//                    name : defaultName,
+//                    level : defaultLevel,
+//                    soloTier : defaultSoloTier,
+//                    soloRank : defaultSoloRank,
+//                    soloLeaguePoints : defaultSoloLeaguePoints,
+//                    flexTier : defaultFlexTier,
+//                    flexRank : defaultFlexRank,
+//                    flexLeaguePoints : defaultFlexLeaguePoints,
+//                    profileIconImage : defaultProfileIconImage
+                )
+                .background(
                         Color(.systemYellow)
                             .opacity(0.2)
                     )
                     .cornerRadius(12)
                     .padding(.top)
+                
                 Button(action: {
-                    // data 불러오기 
+//                    if let favorites = summonerVM.loadFavorites() {
+//                        defaultName = favorites.summonerName,
+//                        defaultLevel = favorites.summonerLevel,
+//                        defaultSoloTier = favorites.summonerSoloTier,
+//                        defaultSoloRank = favorites.summonerSoloRank,
+//                        defaultSoloLeaguePoints = favorites.summonerSoloLeaguePoints,
+//                        defaultFlexTier = favorites.summonerFlexTier,
+//                        defaultFlexRank = favorites.summonerFlexRank,
+//                        defaultFlexLeaguePoints = favorites.summonerFlexLeaguePoints,
+//                        defaultProfileIconImage = imageToData(image: favorites.summonerProfileIconImage) ?? Data()
+//                        }
                 }) {
                     Text("불러오기")
                         .font(.headline)
@@ -149,6 +174,28 @@ struct ContentView: View {
     }
 }
 
+// MARK: - EXTENSION
+
+extension Image {
+    func toUIImage() -> UIImage? {
+        guard let data = self.asUIImage().pngData() else {
+            return nil
+        }
+        return UIImage(data: data)
+    }
+    
+    private func asUIImage() -> UIImage {
+        let controller = UIHostingController(rootView: self)
+        let view = controller.view
+        
+        let renderer = UIGraphicsImageRenderer(size: view?.bounds.size ?? .zero)
+        let image = renderer.image { _ in
+            view?.drawHierarchy(in: view?.bounds ?? .zero, afterScreenUpdates: true)
+        }
+        
+        return image
+    }
+}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

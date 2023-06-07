@@ -34,7 +34,7 @@ struct League: Codable {
     let hotStreak: Bool
 }
 
-struct ProfileInfo {
+struct ProfileInfo: Codable {
     let summonerName: String
     let summonerLevel: Int
     let soloTier: String
@@ -43,19 +43,5 @@ struct ProfileInfo {
     let flexTier: String
     let flexRank: String
     let flexLeaguePoints: Int
-    let summonerProfileIconImage: Image
-    let isFavorite: Bool
-}
-
-struct Favorite: Codable {
-    let summonerName: String
-    let summonerLevel: Int
-    let soloTier: String
-    let soloRank: String
-    let soloLeaguePoints: Int
-    let flexTier: String
-    let flexRank: String
-    let flexLeaguePoints: Int
-//    let summonerProfileIconImageData: Data?
-    let isFavorite: Bool
+    let iconImageData: Data
 }
