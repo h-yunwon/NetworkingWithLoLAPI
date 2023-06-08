@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SummonerProfileView: View {
     
-    var name: String = ""
+    // MARK: - PROPERTY
+    var name: String = "소환사 이름"
     var level: Int = 0
     var soloTier: String = "unranked"
     var soloRank: String = ""
@@ -19,51 +20,54 @@ struct SummonerProfileView: View {
     var flexLeaguePoints: Int = 0
     var profileIconImage: Image = Image(systemName: "circle")
 
+    // MARK: - BODY
     var body: some View {
-        HStack(spacing: 10) {
-            profileIconImage // 소환사 아이콘
-                .resizable()
-                .scaledToFit()
-                .frame(width: 80, height: 80, alignment: .center)
-                .clipShape(Circle())
-                .overlay(
-                    Text(String(level)) // 소환사 레벨
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 7)
-                        .background(Color(.gray))
-                        .cornerRadius(7)
-                    , alignment: .bottom
-                )
+        VStack {
             
-            VStack(alignment: .leading, spacing: 5) {
+            Text(name) // 소환사 이름
+                .font(.title3)
+                .fontWeight(.bold)
+            
+            HStack(spacing: 10) {
+                profileIconImage // 소환사 아이콘
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 80, alignment: .center)
+                    .clipShape(Circle())
+                    .overlay(
+                        Text(String(level)) // 소환사 레벨
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 7)
+                            .background(Color(.gray))
+                            .cornerRadius(7)
+                        , alignment: .bottom
+                    )
                 
-                Text(name) // 소환사 이름
-                    .font(.title3)
-                    .fontWeight(.bold)
-
-                HStack {
-                    // 솔로랭크
-                    SummonerRankView(
-                        tier: soloTier,
-                        rank: soloRank,
-                        leaguePoints: soloLeaguePoints
-                    )
+                VStack(alignment: .leading, spacing: 5) {
                     
-                    Divider()
+                    HStack {
+                        // 솔로랭크
+                        SummonerRankView(
+                            tier: soloTier,
+                            rank: soloRank,
+                            leaguePoints: soloLeaguePoints
+                        )
+                        
+                        Divider()
+                        
+                        // 자유랭크
+                        SummonerRankView(
+                            tier: flexTier,
+                            rank: flexRank,
+                            leaguePoints: flexLeaguePoints
+                        )
+                    }
                     
-                    // 자유랭크
-                    SummonerRankView(
-                        tier: flexTier,
-                        rank: flexRank,
-                        leaguePoints: flexLeaguePoints
-                    )
                 }
-                
+                .frame(maxWidth: .infinity, maxHeight: 100)
             }
-            .frame(maxWidth: .infinity, maxHeight: 100)
         }
-        
         .padding()
     }
 }

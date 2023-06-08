@@ -9,10 +9,12 @@ import SwiftUI
 
 struct SummonerRankView: View {
     
+    // MARK: - PROPERTY
     var tier: String = "unranked"
     var rank: String = ""
     var leaguePoints: Int = 0
     
+    // MARK: - BODY
     var body: some View {
         VStack {
             Image("emblem-\(tier.lowercased())") // 티어 이미지

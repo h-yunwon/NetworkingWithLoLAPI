@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 struct Summoner: Codable {
     let id: String
@@ -43,5 +42,5 @@ struct ProfileInfo: Codable {
     let flexTier: String
     let flexRank: String
     let flexLeaguePoints: Int
-    let iconImageData: Data
 }
+

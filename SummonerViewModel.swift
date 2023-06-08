@@ -13,15 +13,19 @@ class SummonerViewModel: ObservableObject {
     // MARK: - PROPERTY
     @Published var summonerName: String = ""
     @Published var summonerLevel: Int = 0
-    
     @Published var summonerProfileIconImage: Image = Image(systemName: "circle")
-    
     @Published var summonerSoloTier: String = "unranked"
     @Published var summonerSoloRank: String = ""
     @Published var summonerSoloLeaguePoints: Int = 0
     @Published var summonerFlexTier: String = "unranked"
     @Published var summonerFlexRank: String = ""
     @Published var summonerFlexLeaguePoints: Int = 0
+    
+    @Published var defaultName : String = ""
+    @Published var defaultSoloTier : String = "unranked"
+    @Published var defaultSoloRank : String = ""
+    @Published var defaultFlexTier : String = "unranked"
+    @Published var defaultFlexRank : String = ""
     
     private let apiKey = Bundle.main.apiKey
 
@@ -36,16 +40,16 @@ class SummonerViewModel: ObservableObject {
         }
     }
     // USER DEFAULT 불러오기
-    func loadFavorites() -> ProfileInfo? {
-        if let encodedData = UserDefaults.standard.data(forKey: "ProfileInfo") {
-            let decoder = JSONDecoder()
-            if let favorites = try? decoder.decode(ProfileInfo.self, from: encodedData) {
-                print("불러오기 성공: \(favorites)")
-                return favorites
+    func loadFavorites() {
+        let decoder = JSONDecoder()
+        if let encodedData = UserDefaults.standard.data(forKey: "ProfileInfo"), let favorites = try? decoder.decode(ProfileInfo.self, from: encodedData) {
+                defaultName = favorites.summonerName
+                defaultSoloTier = favorites.soloTier
+                defaultSoloRank = favorites.soloRank
+                defaultFlexTier = favorites.flexTier
+                defaultFlexRank = favorites.flexRank
             }
         }
-        return nil
-    }
 
     
     // 소환사 리그정보 가져오기
@@ -65,13 +69,6 @@ class SummonerViewModel: ObservableObject {
                 print("No data received")
                 return
             }
-            
-            // 가져온 데이터 구조 확인
-//            if let dataString = String(data: data, encoding: .utf8) {
-//                print(dataString)
-//            } else {
-//                print("Unable to convert data to string")
-//
             
             do {
                 let decoder = JSONDecoder()
@@ -129,9 +126,13 @@ class SummonerViewModel: ObservableObject {
                 print("No data received")
                 return
             }
-            
+        
             DispatchQueue.main.async {
                 self.summonerProfileIconImage = Image(uiImage: UIImage(data: data) ?? UIImage())
+                
+                if let imageSize = UIImage(data: data)?.size {
+                    print("Image size: \(imageSize)")
+                }
             }
         }.resume()
     }

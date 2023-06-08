@@ -10,40 +10,28 @@ import SwiftUI
 struct ContentView: View {
     
     // MARK: - PROPERTY
-    
     @StateObject private var summonerVM = SummonerViewModel()
+    @State private var searchSummonerName: String = ""
     @State private var isFormValid: Bool = false
-    
-//    @State private var defaultName : String
-//    @State private var defaultLevel : Int
-//    @State private var defaultSoloTier : String
-//    @State private var defaultSoloRank : String
-//    @State private var defaultSoloLeaguePoints : Int
-//    @State private var defaultFlexTier : String
-//    @State private var defaultFlexRank : String
-//    @State private var defaultFlexLeaguePoints : Int
-//    @State private var defaultProfileIconImage : Image
-//
+    @State private var favoriteIsExpanded: Bool = false
+
     // MARK: - FUNCTION
-    
-    func imageToData(image: Image) -> Data? {
-        guard let uiImage = image.toUIImage() else {
-            return nil
-        }
-        
-        return uiImage.pngData()
-    }
-
-    func dataToImage(data: Data) -> Image? {
-        guard let uiImage = UIImage(data: data) else {
-            return nil
-        }
-        
-        return Image(uiImage: uiImage)
-    }
-
     func searchSummoner() {
+        summonerVM.summonerName = searchSummonerName
         summonerVM.fetchSummonerData()
+    }
+    
+    func buttonActionToAddFavorite() {
+        summonerVM.saveFavorites(profileInfo: ProfileInfo(
+        summonerName: summonerVM.summonerName,
+        summonerLevel: summonerVM.summonerLevel,
+        soloTier: summonerVM.summonerSoloTier,
+        soloRank: summonerVM.summonerSoloRank,
+        soloLeaguePoints: summonerVM.summonerSoloLeaguePoints,
+        flexTier: summonerVM.summonerFlexTier,
+        flexRank: summonerVM.summonerFlexRank,
+        flexLeaguePoints: summonerVM.summonerFlexLeaguePoints
+        ))
     }
     
     // MARK: - BODY
@@ -51,13 +39,15 @@ struct ContentView: View {
     var body: some View {
     
         VStack(spacing: 5) {
+            
+            // 소환사 검색 창
             HStack {
                 Image(systemName: "magnifyingglass")
                     .font(.headline)
                     .foregroundColor(.gray)
                 
-                TextField("소환사 검색", text: $summonerVM.summonerName, onEditingChanged: { isEditing in
-                    isFormValid = !summonerVM.summonerName.isEmpty
+                TextField("소환사 검색", text: $searchSummonerName, onEditingChanged: { isEditing in
+                    isFormValid = !searchSummonerName.isEmpty
                 })
                     .font(.headline)
                     .foregroundColor(.gray)
@@ -82,6 +72,29 @@ struct ContentView: View {
             .padding()
             
             VStack {
+                
+                // 소환사 등록 탭
+                DisclosureGroup(isExpanded: $favoriteIsExpanded, content: {
+                    MyProfileInfoView(
+                        name: summonerVM.defaultName,
+                        soloTier: summonerVM.defaultSoloTier,
+                        soloRank: summonerVM.defaultSoloRank,
+                        flexTier: summonerVM.defaultFlexTier,
+                        flexRank: summonerVM.defaultFlexRank
+                    )
+                }, label: {
+                    HStack {
+                        Image(systemName: "star.fill")
+                        Text("내 소환사 정보")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.black)
+                    .opacity(0.7)
+                })
+                .onAppear(perform: {
+                    summonerVM.loadFavorites()
+                })
+                // 소환사 검색 정보
                 SummonerProfileView(
                     name : summonerVM.summonerName,
                     level : summonerVM.summonerLevel,
@@ -99,21 +112,9 @@ struct ContentView: View {
                     )
                     .cornerRadius(12)
                 
-                Button(action: {
-                    summonerVM.saveFavorites(profileInfo: ProfileInfo(
-                        summonerName: summonerVM.summonerName,
-                        summonerLevel: summonerVM.summonerLevel,
-                        soloTier: summonerVM.summonerSoloTier,
-                        soloRank: summonerVM.summonerSoloRank,
-                        soloLeaguePoints: summonerVM.summonerSoloLeaguePoints,
-                        flexTier: summonerVM.summonerFlexTier,
-                        flexRank: summonerVM.summonerFlexRank,
-                        flexLeaguePoints: summonerVM.summonerFlexLeaguePoints,
-                        iconImageData: imageToData(image: summonerVM.summonerProfileIconImage) ?? Data()
-                    ))
-                    
-                }) {
-                    Text("즐겨찾기")
+                // 즐겨찾기 추가 버튼
+                Button(action: buttonActionToAddFavorite) {
+                    Text("나의 소환사 정보 추가")
                         .font(.headline)
                         .foregroundColor(.black)
                         .opacity(0.7)
@@ -125,77 +126,12 @@ struct ContentView: View {
                 )
                 .cornerRadius(5)
                 
-                SummonerProfileView(
-//                    name : defaultName,
-//                    level : defaultLevel,
-//                    soloTier : defaultSoloTier,
-//                    soloRank : defaultSoloRank,
-//                    soloLeaguePoints : defaultSoloLeaguePoints,
-//                    flexTier : defaultFlexTier,
-//                    flexRank : defaultFlexRank,
-//                    flexLeaguePoints : defaultFlexLeaguePoints,
-//                    profileIconImage : defaultProfileIconImage
-                )
-                .background(
-                        Color(.systemYellow)
-                            .opacity(0.2)
-                    )
-                    .cornerRadius(12)
-                    .padding(.top)
-                
-                Button(action: {
-//                    if let favorites = summonerVM.loadFavorites() {
-//                        defaultName = favorites.summonerName,
-//                        defaultLevel = favorites.summonerLevel,
-//                        defaultSoloTier = favorites.summonerSoloTier,
-//                        defaultSoloRank = favorites.summonerSoloRank,
-//                        defaultSoloLeaguePoints = favorites.summonerSoloLeaguePoints,
-//                        defaultFlexTier = favorites.summonerFlexTier,
-//                        defaultFlexRank = favorites.summonerFlexRank,
-//                        defaultFlexLeaguePoints = favorites.summonerFlexLeaguePoints,
-//                        defaultProfileIconImage = imageToData(image: favorites.summonerProfileIconImage) ?? Data()
-//                        }
-                }) {
-                    Text("불러오기")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .opacity(0.7)
-                }
-                .frame(maxWidth: .infinity)
-                .background(
-                    Color(.systemYellow)
-                        .opacity(0.1)
-                )
-                .cornerRadius(5)
-
-            }
-        }
+            }//: VStack
+        } //: VStack
         .padding()
     }
 }
 
-// MARK: - EXTENSION
-
-extension Image {
-    func toUIImage() -> UIImage? {
-        guard let data = self.asUIImage().pngData() else {
-            return nil
-        }
-        return UIImage(data: data)
-    }
-    
-    private func asUIImage() -> UIImage {
-        let controller = UIHostingController(rootView: self)
-        let view = controller.view
-        
-        let renderer = UIGraphicsImageRenderer(size: view?.bounds.size ?? .zero)
-        let image = renderer.image { _ in
-            view?.drawHierarchy(in: view?.bounds ?? .zero, afterScreenUpdates: true)
-        }
-        
-        return image
-    }
-}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
