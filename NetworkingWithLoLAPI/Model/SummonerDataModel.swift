@@ -35,12 +35,9 @@ struct League: Codable {
 
 struct ProfileInfo: Codable {
     let summonerName: String
-    let summonerLevel: Int
     let soloTier: String
     let soloRank: String
-    let soloLeaguePoints: Int
     let flexTier: String
     let flexRank: String
-    let flexLeaguePoints: Int
 }
 

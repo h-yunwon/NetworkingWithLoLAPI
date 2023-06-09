@@ -24,14 +24,13 @@ struct ContentView: View {
     func buttonActionToAddFavorite() {
         summonerVM.saveFavorites(profileInfo: ProfileInfo(
         summonerName: summonerVM.summonerName,
-        summonerLevel: summonerVM.summonerLevel,
         soloTier: summonerVM.summonerSoloTier,
         soloRank: summonerVM.summonerSoloRank,
-        soloLeaguePoints: summonerVM.summonerSoloLeaguePoints,
         flexTier: summonerVM.summonerFlexTier,
-        flexRank: summonerVM.summonerFlexRank,
-        flexLeaguePoints: summonerVM.summonerFlexLeaguePoints
+        flexRank: summonerVM.summonerFlexRank
         ))
+        
+        summonerVM.loadFavorites()
     }
     
     // MARK: - BODY
@@ -73,7 +72,7 @@ struct ContentView: View {
             
             VStack {
                 
-                // 소환사 등록 탭
+                // 등록한 소환사 확인 창 
                 DisclosureGroup(isExpanded: $favoriteIsExpanded, content: {
                     MyProfileInfoView(
                         name: summonerVM.defaultName,
@@ -90,9 +89,6 @@ struct ContentView: View {
                     .font(.headline)
                     .foregroundColor(.black)
                     .opacity(0.7)
-                })
-                .onAppear(perform: {
-                    summonerVM.loadFavorites()
                 })
                 // 소환사 검색 정보
                 SummonerProfileView(
@@ -112,9 +108,9 @@ struct ContentView: View {
                     )
                     .cornerRadius(12)
                 
-                // 즐겨찾기 추가 버튼
+                // 내 소환사 정보 추가 버튼
                 Button(action: buttonActionToAddFavorite) {
-                    Text("나의 소환사 정보 추가")
+                    Text("내 소환사 정보 추가")
                         .font(.headline)
                         .foregroundColor(.black)
                         .opacity(0.7)
