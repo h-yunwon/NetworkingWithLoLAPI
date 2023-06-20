@@ -28,7 +28,7 @@
 		5F3AC1632A299A6A00623B69 /* SummonerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerDataModel.swift; sourceTree = "<group>"; };
 		5F3AC16D2A29C83E00623B69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5F3AC16E2A29D1BC00623B69 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		5F3AC1702A29EF0300623B69 /* SummonerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerViewModel.swift; sourceTree = SOURCE_ROOT; };
+		5F3AC1702A29EF0300623B69 /* SummonerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SummonerViewModel.swift; path = NetworkingWithLoLAPI/ViewModel/SummonerViewModel.swift; sourceTree = SOURCE_ROOT; };
 		5F3AC1722A29F2AA00623B69 /* SummonerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerProfileView.swift; sourceTree = "<group>"; };
 		5F3AC1742A2D78F300623B69 /* SummonerRankView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SummonerRankView .swift"; sourceTree = "<group>"; };
 		5F3AC17C2A31C0C000623B69 /* MyProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInfoView.swift; sourceTree = "<group>"; };
@@ -48,7 +48,6 @@
 		5F3AC1452A298ECF00623B69 = {
 			isa = PBXGroup;
 			children = (
-				5F3AC1512A298ECF00623B69 /* NetworkingWithLoLAPIApp.swift */,
 				5F3AC1502A298ECF00623B69 /* NetworkingWithLoLAPI */,
 				5F3AC14F2A298ECF00623B69 /* Products */,
 			);
@@ -65,6 +64,7 @@
 		5F3AC1502A298ECF00623B69 /* NetworkingWithLoLAPI */ = {
 			isa = PBXGroup;
 			children = (
+				5F3AC1512A298ECF00623B69 /* NetworkingWithLoLAPIApp.swift */,
 				5F3AC16D2A29C83E00623B69 /* Info.plist */,
 				5F3AC16F2A29E12C00623B69 /* ViewModel */,
 				5F3AC1692A29C56000623B69 /* View */,
